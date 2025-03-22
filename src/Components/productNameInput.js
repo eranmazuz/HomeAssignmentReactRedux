@@ -1,20 +1,25 @@
 import {TextField} from "@mui/material";
 import CAPTIONS from "../Constants/captions";
-import ERRORS from "../Constants/errors";
 import React, {useCallback} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {cartActions} from "../Store/cartSlice";
 
-const ProductNameInput = ({ productName, setProductName }) => {
+const ProductNameInput = ({ setProductName }) => {
+    const errors = useSelector(state => state.cart.errors)
+    const dispatch = useDispatch();
+
     const handleProductNameSet = useCallback((event) => {
+        dispatch(cartActions.clearError('productName'))
         setProductName(event.target.value)
-    }, [setProductName])
+    }, [setProductName, dispatch])
     return (
         <TextField
             label={CAPTIONS.PRODUCT_NAME}
             variant='outlined'
             sx={{ width: 300 }}
             onChange={handleProductNameSet}
-            error={!productName}
-            helperText= {!productName ? ERRORS.REQUIRED: null}
+            error={errors.productName}
+            helperText= {errors.productName}
         />
     )
 }
