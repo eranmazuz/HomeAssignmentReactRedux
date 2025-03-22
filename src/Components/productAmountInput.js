@@ -1,14 +1,17 @@
 import {TextField} from "@mui/material";
 import CAPTIONS from "../Constants/captions";
-import ERRORS from "../Constants/errors";
 import React, {useCallback} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {cartActions} from "../Store/cartSlice";
 
-const ProductAmountInput = ( { productAmount, setProductAmount }) => {
+const ProductAmountInput = ( { setProductAmount }) => {
+    const errors = useSelector(state => state.cart.errors)
+    const dispatch = useDispatch();
 
     const handleProductAmountSet = useCallback((event) => {
-
+        dispatch(cartActions.clearError('productAmount'))
         setProductAmount(parseInt(event.target.value))
-    }, [setProductAmount])
+    }, [setProductAmount,dispatch])
 
     const handleNumberValidation = useCallback((event) => {
         if((event.key === '-') || (event.key === '.') || (event.key === 'e')) {
@@ -22,8 +25,8 @@ const ProductAmountInput = ( { productAmount, setProductAmount }) => {
             sx={{ width: 300 }}
             onChange={handleProductAmountSet}
             onKeyDown={handleNumberValidation}
-            error={!productAmount}
-            helperText= {!productAmount ? ERRORS.REQUIRED: null}
+            error={errors.productAmount}
+            helperText= {errors.productAmount}
             type="number"
         />
     )

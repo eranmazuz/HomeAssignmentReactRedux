@@ -1,12 +1,11 @@
-import { createSlice} from '@reduxjs/toolkit'
+import {createSlice} from '@reduxjs/toolkit'
 
 const cartSlice = createSlice({
     name: 'cart',
-    initialState: { items: {} },
+    initialState: { items: {}, finishOrder: false, errors: {} },
     reducers: {
         addItem(state, action) {
             const newProduct = action.payload
-            console.log(action.payload)
             if (!(state.items[newProduct.category])){
                 state.items[newProduct.category] = {}
             }
@@ -15,6 +14,18 @@ const cartSlice = createSlice({
                 state.items[newProduct.category][newProduct.name] = 0
             }
             state.items[newProduct.category][newProduct.name] += newProduct.amount
+        },
+        finishOrder(state) {
+            state.finishOrder = true
+        },
+        setErrors(state, action) {
+            state.errors = action.payload
+        },
+        clearErrors(state) {
+            state.errors = {}
+        },
+        clearError(state, action) {
+            delete state.errors[action.payload]
         }
     }
 });

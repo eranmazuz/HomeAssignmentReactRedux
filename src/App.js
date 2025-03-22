@@ -1,11 +1,16 @@
 import Header from "./Components/header";
 import CartScreen from "./Screens/cartScreen";
+import {useSelector} from "react-redux";
+import OrderScreen from "./Screens/orderScreen";
 
 function App() {
-  return (
+    const finishOrder = useSelector(state => state.cart.finishOrder)
+
+    return (
     <>
       <Header/>
-      <CartScreen/>
+        { !finishOrder && <CartScreen/>}
+        { finishOrder  && <OrderScreen/>}
     </>
   );
 }
