@@ -21,7 +21,7 @@ const NewProductInput = () => {
         if(!category) {
             errors.category = ERRORS.REQUIRED
         }
-        if(!productName) {
+        if(!productName.trim()) {
             errors.productName = ERRORS.REQUIRED
         }
         if(!productAmount) {
