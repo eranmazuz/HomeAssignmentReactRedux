@@ -1,7 +1,8 @@
+import NewProductInput from "../Components/newProductInput";
 
 const CartScreen = () => {
     return (
-        <p>this is cart</p>
+        <NewProductInput/>
     )
 }
 
