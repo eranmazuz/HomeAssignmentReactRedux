@@ -5,6 +5,7 @@ import CAPTIONS from "../Constants/captions";
 import CategoriesComboBox from "./categoriesComboBox";
 import ProductNameInput from "./productNameInput";
 import ProductAmountInput from "./productAmountInput";
+import {cartActions} from "../Store/cartSlice";
 
 const NewProductInput = () => {
     const [category, setCategory] = useState('')
@@ -15,7 +16,12 @@ const NewProductInput = () => {
     const dispatch = useDispatch();
     const handleProductSave = useCallback(() =>  {
 
-    }, [category, productName, productAmount, dispatch])
+        dispatch(cartActions.addItem({
+            category: category,
+            name: productName,
+            amount: productAmount
+        }))
+    }, [category, productName, productAmount,dispatch])
 
 
 

@@ -1,9 +1,14 @@
 import NewProductInput from "../Components/newProductInput";
+import {Stack} from "@mui/material";
+import CartProductsList from "../Components/cartProductsList";
 
 const CartScreen = () => {
     return (
-        <NewProductInput/>
-    )
+        <Stack>
+            <NewProductInput/>
+            <CartProductsList/>
+        </Stack>
+)
 }
 
 export default CartScreen
